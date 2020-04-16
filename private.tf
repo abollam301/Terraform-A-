@@ -1,35 +1,8 @@
-/*
-  Database Servers
-*/
+#Private subnet
+  
 resource "aws_security_group" "db" {
     name = "vpc_db"
-    description = "Allow incoming database connections."
-
-    ingress { # SQL Server
-        from_port = 1433
-        to_port = 1433
-        protocol = "tcp"
-        security_groups = ["${aws_security_group.web.id}"]
-    }
-    ingress { # MySQL
-        from_port = 3306
-        to_port = 3306
-        protocol = "tcp"
-        security_groups = ["${aws_security_group.web.id}"]
-    }
-
-    ingress {
-        from_port = 22
-        to_port = 22
-        protocol = "tcp"
-        cidr_blocks = ["${var.vpc_cidr}"]
-    }
-    ingress {
-        from_port = -1
-        to_port = -1
-        protocol = "icmp"
-        cidr_blocks = ["${var.vpc_cidr}"]
-    }
+    description = "Allow connections through egress traffic."
 
     egress {
         from_port = 80
