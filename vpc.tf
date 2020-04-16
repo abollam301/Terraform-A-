@@ -1,3 +1,4 @@
+#VPC
 resource "aws_vpc" "default" {
     cidr_block = "${var.vpc_cidr}"
     enable_dns_hostnames = true
@@ -5,14 +6,12 @@ resource "aws_vpc" "default" {
         Name = "terraform-aws-vpc"
     }
 }
-
+#internet gateway
 resource "aws_internet_gateway" "default" {
     vpc_id = "${aws_vpc.default.id}"
 }
 
-/*
-  NAT Instance
-*/
+# creating security group
 resource "aws_security_group" "nat" {
     name = "vpc_nat"
     description = "Allow traffic to pass from the private subnet to the internet"
@@ -94,9 +93,8 @@ resource "aws_eip" "nat" {
     vpc = true
 }
 
-/*
-  Public Subnet
-*/
+#Public subnet
+
 resource "aws_subnet" "eu-west-1a-public" {
     vpc_id = "${aws_vpc.default.id}"
 
