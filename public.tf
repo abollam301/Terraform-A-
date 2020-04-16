@@ -1,9 +1,8 @@
-/*
-  Web Servers
-*/
+#Public subnet
+
 resource "aws_security_group" "web" {
     name = "vpc_web"
-    description = "Allow incoming HTTP connections."
+    description = "Allow connections through ingress and egress."
 
     ingress {
         from_port = 80
@@ -28,13 +27,13 @@ resource "aws_security_group" "web" {
         from_port = 1433
         to_port = 1433
         protocol = "tcp"
-        cidr_blocks = ["${var.private_subnet_cidr}"]
+        cidr_blocks = ["${var.public_subnet_cidr}"]
     }
     egress { # MySQL
         from_port = 3306
         to_port = 3306
         protocol = "tcp"
-        cidr_blocks = ["${var.private_subnet_cidr}"]
+        cidr_blocks = ["${var.public_subnet_cidr}"]
     }
 
     vpc_id = "${aws_vpc.default.id}"
