@@ -5,9 +5,9 @@ provider "aws" {
 }
 
 provider "aws" {
-  region  = "us-east-1"
+  region  = "us-west-1"
   profile = "${var.aws_profile}"
-  alias   = "us-east-1"
+  alias   = "us-west-1"
   version = "~> 1.9"
 }
 
